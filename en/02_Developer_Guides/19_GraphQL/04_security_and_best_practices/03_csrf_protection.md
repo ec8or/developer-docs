@@ -35,9 +35,15 @@ Queries do not require CSRF tokens.
 
 If you are using HTTP basic authentication or a token-based system like OAuth or [JWT](https://github.com/Firesphere/silverstripe-graphql-jwt),
 you will want to remove the CSRF protection, as it just adds unnecessary overhead. You can do this by setting
-the middleware to `false`.
+the middleware to `false`. When making changes, make sure your new settings are executed after the default settings or they might be overwritten by the default configuration.
 
 ```yaml
+---
+Name: my-custom-graphql-middlewares
+After:
+  - graphql-middlewares
+---
+
 SilverStripe\Core\Injector\Injector:
   SilverStripe\GraphQL\QueryHandler\QueryHandlerInterface.default:
     class: SilverStripe\GraphQL\QueryHandler\QueryHandler
